@@ -1,0 +1,23 @@
+//Cynthia Saalfeld WeekOneHomework
+
+	public static void listsExercise () {
+		//You do this part!
+
+		//1.  Declare a list of Strings called myStringList
+		List <String> myStringList = new List <String>();
+
+
+		//2.  Add three strings to your list and print it out in the debug log
+		myStringList.add('mountain');
+        myStringList.add('sky');
+        myStringList.add('river');
+        System.debug('myStringList content: ' + myStringList);
+        System.debug('The size of myStringList: ' + myStringList.size());
+
+		//3.  Print out the third value in your list of strings using list indexing. 
+		System.debug('The third value of myStringList: '+myStringList[2]); 
+
+		//4.  Declare a list of integers and add the values 1,2,3,4,5 all in one line
+        List <Integer> numbers = new List <Integer>{1,2,3,4,5};
+        System.debug('numbers: ' +numbers);
+	}
