@@ -1,0 +1,98 @@
+// copy & paste class from dev org into github
+
+public with sharing class WeekOneClassExercises {
+	//Another demo class that we will use to work through new concepts in-Class
+
+	public static void talkingAboutPrimitives() {
+		//Lets declare some primitives!
+		Integer i;
+		//What are some other types we can declare?
+		String s;
+
+		Decimal d;
+
+
+		//Assigning Values
+		i = 2;
+		s = 'Mr. Stringy';
+
+		//More commonly you can declare a variable and assign it a value in the same operation
+		Integer j = 3;
+		String st = 'Ms. String';
+		Decimal dc = 3.14;
+
+
+		//Using some of those values
+		Integer result = i + j;  //Since we assigned i a value of 2 and j a value of 3, result is now equal to 5
+
+
+	}
+
+
+	public static void comparisonAndLogicalOperators () {
+		//Conditionals and logical operators are an important part of coding.  You may already be familiar with them in concept from formula fields and other
+		//declarative tools in Salesforce that use conditional logic.  
+
+		/*Comparison operators to be familiar with are
+		== Two equals signs indicate you are comparing two values to see if they are the same
+		< less than
+		<= less than or equal to
+		>= greater than or equal to
+		!= not equal (evaluates whether the two values are NOT Equal)
+
+		//Logical Operators allow you to build out the logic of complex comparisons
+		&& signifies AND
+		|| signifies OR
+
+		*/
+
+		Boolean isGreater = 4 > 6;  // Our isGreater variable must be false, since 4 is not greater than 6
+
+		Boolean isLess = 4 > 2;  //our isLess must be true, since 4 IS greater than 2
+
+		Boolean areEquivilant = (5 == 2+3);  //areEquivilant must be true, since 5 is equivilant to 2+3.  The parenthesis here aren't necessary, but do make the code more readable
+		//note that the single equals sign above is to assign a value to our boolean variable, whereas the double equals sign is a comparison operator
+
+		Boolean result = (5 > 2 && (10 == 5*2)); //result must be true since 5 is greater than 2 AND 10 is equivilant to 5 times 2
+
+		Boolean anotherResult = 2 <> 3;  //again, true since 2 does not equal 3
+
+		//These are pretty silly examples, since we know the outcome in advance, but this is just to give a quick look at the syntax
+
+
+	}
+
+	public static void introToLists () {
+
+		//Let's declare a list of strings
+		List < String > listOfStrings = new List < String >();
+
+		//Ok, we have a list declared, but we haven't yet put anything in it. let's put some stuff in those lists
+		listOfStrings.add('EntryA');
+		listOfStrings.add('EntryB');
+		listOfStrings.add('EntryC');
+
+		//Great, now listOfStrings has three strings in it. Let's prove it by printing out the list size using system.debug
+		system.debug('Size of listOfStrings: '+listOfStrings.size());
+
+		//Let's declare a list and add values all in the same line
+		List < Integer > listOfIntegers = new List < Integer >{1,2,3};
+		
+		//And to see the values in the debug log:
+		system.debug('Contents of listOfIntegers: '+listOfIntegers);
+
+		//Same idea with a list of strings
+		List < String > fruitList = new List < String >{'apples','pears','oranges','pineapples'};
+		system.debug('Contents of fruitList '+fruitList);
+
+		//As we saw in our reading, you can refer to the value of an item in a list by using its index, or the order in which it appears in the list
+		system.debug('Value of 0 Index:'+fruitList[0]);
+
+		//Let's do one together!  Using system.debug, print out the value oranges
+		system.debug('Value of 2 Index:'+fruitList[2]);
+
+
+	}
+
+
+}
