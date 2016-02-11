@@ -1,0 +1,47 @@
+public with sharing class CommentingOnCodeExercise {
+	
+	//Your Assignment is to add comments describing what is being done in the methods below.  Call out the concepts you learned in your readings
+	//and in class. 
+	
+    //Declaring a method named cartValues
+	public static void cartValues () {
+
+        //Declaring variable named minimumCartValue type integer and assigning the value of 50 to it
+		integer minimumCartValue = 50;
+
+        //Declaring primitive variables type integer and assigning values
+		integer itemA = 10;
+		integer itemB = 20;
+		integer itemC = 45;
+		
+        //Doing math operations with the variable values and assigning it to a new variable cartValue
+        //The sum of the variables itemA and itemB declared above (lines 13-14) will be stored in the variable cartValue
+		integer cartValue = itemA + itemB;
+		
+        //Declaring a variable boolean and using comparison operators  
+		Boolean cartMinimumMet = cartValue >= minimumCartValue; //cartMinimumMet value is false since 30 is not greater or equal than 50
+
+        //Print in the Debug Log the sentence between the quotes and the value of the boolean variable cartMinimumMet which is false
+		system.debug('Have we reached the minimum: '+cartMinimumMet);
+        
+        //Added this line just to show the current value of the variable cartValue in the Debug Log
+        system.debug('cartValue: ' +cartValue);
+		
+        //Assigning a new value for cartValue variable
+        //This time, we will update the value of cartValue adding it with the itemC variable declared earlier
+		cartValue = cartValue + itemC;  //cartValue = 30+45= 75
+		
+        //Once again, we're comparing the updated values of the variables cartValue and minimumCartValue
+		cartMinimumMet = cartValue >= minimumCartValue; // cartMinimumMet's result is True since 75 is greater than the value assigned to 
+                                                        // minimumCartValue earlier (line 10)
+
+        //Print in the Debug Log the new value of cartMinimumMet
+		system.debug('How about now? : '+cartMinimumMet);
+        
+        //Added this line just to show the current value of the variable cartValue in the Debug Log
+        system.debug('cartValue: ' +cartValue);
+
+	}
+
+
+}
