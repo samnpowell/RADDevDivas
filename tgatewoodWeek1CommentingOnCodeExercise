@@ -1,0 +1,37 @@
+public with sharing class CommentingOnCodeExercise {
+	
+	//Your Assignment is to add comments describing what is being done in the methods below.  Call out the concepts you learned in your readings
+	//and in class. 
+	public static void cartValues () {
+
+    //Declare and initialize an integer with a value of 50.
+		integer minimumCartValue = 50;
+
+    //Declare and initialize 3 integers    
+		integer itemA = 10;
+		integer itemB = 20;
+		integer itemC = 45;
+        
+    //Declare new integer and add together 2 of the integers declared above. Since itemA is 10 and itemB is 20, the result is 30.    
+		integer cartValue = itemA + itemB;
+
+    //The cartMinimumMet is only true if cartValue is greater than or equal to minimumCartValue. Currently this is false since 
+    //cartValue is 30, which is less than 50.
+		Boolean cartMinimumMet = cartValue >= minimumCartValue;
+
+    //Print the values in the debug log    
+		system.debug('Have we reached the minimum: '+cartMinimumMet);
+
+    //Assign new cartValue by adding original cartValue of 30 and itemC of 45, with a result of 75. 
+		cartValue = cartValue + itemC;
+
+    //The cartMinimumMet is now true because cartValue is 75, which is greater than the minimumCartValue of 70.    
+		cartMinimumMet = cartValue >= minimumCartValue;
+
+    //Print the new value of cartMinimumMet in the debug log    
+		system.debug('How about now? : '+cartMinimumMet);
+
+	}
+
+
+}
