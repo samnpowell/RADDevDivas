@@ -1,0 +1,63 @@
+public with sharing class WeekTwoHomework {
+	
+
+	public static void homeworkAssignmentMethod () {
+		//Read through the set-up below and then complete the code following the prompts.  When you're done, make sure to compile (save) your work
+		//Open Execute Anonymous in the Developer Console and execute your code by typing in: Week2Homework.homeworkAssignmentMethod();
+		//Samantha: We should replace the command above to: WeekTwoHomework.homeworkAssignmentMethod();
+		//Read through the debug statements to make sure you're done your work correctly.
+		
+		//************************************************************************************************************
+		// 1. Add two more whole numbers to this list using .add() 
+		List < Integer > numberList = new List < Integer >{0,1,1,2,3,5,8,13,21,34};
+            numberList.add(55);
+        	numberList.add(90);
+
+
+
+		//Checking our work:
+		system.debug('This number should be 12: ' +numberList.size());
+
+		//************************************************************************************************************
+		// 2. Create a new Account and insert it in the database. (If you're stuck, look back at the WeekTwoClassExercises class for an example)
+		Account a = new Account(Name = 'Glassdoor', NumberOfEmployees = 100, Industry= 'Technology');
+        insert(a);
+
+		//Print the content of the variable a type Account in the Debug Log
+		system.debug('My new Account is: ' + a);
+        
+        //Checking our work:
+		system.debug('This number should be 1: '+ Limits.getDMLRows()); 
+        // Samantha, My number is not matching here, instead of 1 as it mentions here I'm getting a result ammount of 2
+        // How can I solve it?
+
+		//************************************************************************************************************
+		// 3. For the loop that is commented out below, update the while condition by replacing the ?? so that the loop runs 5 times
+		//delete the slashes so that the loop is no longer commented out and compile the class
+		Integer magicNumber = 3; 
+
+        /* Samantha
+          In order for the loop to run 5 times & get magicNumber variable value of 8 at the end:
+
+		  I had to change the value of magicNumber(line 35), for 3 instead of 2 &
+		  replaced the ?? in the While Loop condition to 8
+          
+		  
+		  If I would keep magicNumber = 2 as originally declared on line 35, 
+              the final magicNumber amount is 7 not 8; 
+              If I change the operator for <= it will run the loop 6 times but I will get 8 as the final number
+		      If I replace the ?? for 8, it will also run the loop 6 times and get 8 as the magicNumber at the end
+		  
+		*/
+		while (magicNumber <8) {
+            system.debug('magicNumber: ' +magicNumber);
+			magicNumber = magicNumber + 1;
+            
+		}
+
+
+		//Checking our work: 
+		system.debug('The magic number should now be 8: '+magicNumber);
+
+	}
+}
