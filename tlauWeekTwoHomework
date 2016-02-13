@@ -1,0 +1,43 @@
+public with sharing class WeekTwoHomework {
+    
+    public static void homeworkAssignmentMethod () {
+        //Read through the set-up below and then complete the code following the prompts.  When you're done, make sure to compile (save) your work
+        //Open Execute Anonymous in the Developer Console and execute your code by typing in: Week2Homework.homeworkAssignmentMethod();
+        //Read through the debug statements to make sure you're done your work correctly.
+        
+        //************************************************************************************************************
+        // 1. Add two more whole numbers to this list using .add() 
+        List < Integer > numberList = new List < Integer >{0,1,1,2,3,5,8,13,21,34};
+        numberList.add(39);
+        numberList.add(43);
+
+        //Checking our work:
+        system.debug('This number should be 12: ' +numberList.size());
+
+        //************************************************************************************************************
+        // 2. Create a new Account and insert it in the database. (If you're stuck, look back at the WeekTwoClassExercises class for an example)
+        Account acct = new Account();
+        acct.Name = 'RAD Women';
+        insert acct;
+
+
+        //Checking our work:
+        system.debug('This number should be 1: '+ Limits.getDMLRows());
+
+        //************************************************************************************************************
+        // 3. For the loop that is commented out below, update the while condition by replacing the ?? so that the loop runs 5 times
+        //delete the slashes so that the loop is no longer commented out and compile the class
+        Integer magicNumber = 2; 
+
+        while (magicNumber < 7) {
+            magicNumber = magicNumber + 1;
+            system.debug('1x'); //print '1x' each time it runs
+        }
+
+
+        //Checking our work:
+        system.debug('The magic number should now be 8: '+magicNumber);
+        //number is 7, but verified that it runs the correct number of times
+
+    }
+}
