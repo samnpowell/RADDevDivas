@@ -1,0 +1,81 @@
+//You do this part!
+
+		//1.  Declare three primitives variables, an Integer, a String and a Decimal
+		Integer numberyThing;
+        
+        String letteryThing;
+        
+        Decimal dottyThing;
+
+		//2.  Assign values to your three new variables
+		
+		numberyThing = 42;
+            
+        letteryThing = 'Someone misspelled "variable" in item #4.';
+        
+        dottyThing = 80.2;
+
+		//3.  Print out your variables to the debug log
+		
+        system.debug('My Integer is '+numberyThing);
+        
+        system.debug('My String is '+letteryThing);
+        
+        system.debug('My Decimal is '+dottyThing);
+
+		//4.  Declare an integer varable and assign a value in the same line
+		
+        String letteryThingOne = 'Watch out, boys! The girls are coding now!';
+
+		//5.  Print out your integer to the debug log
+		
+        System.debug('RAD Women say '+letteryThingOne);
+        
+        
+        
+}
+public static void conditionalsExercise () {
+
+		Boolean result;
+
+		// 1. Write a comparison statement that evauates to false and assign the result to our result variable
+		Integer smallerNumber = 9;
+        Integer biggerNumber = 39;
+        
+        Boolean myIsBigger = smallerNumber > biggerNumber;
+            
+       
+        
+
+		// 2. Declare another boolean variable and write a comparison that evaluates to true, assign it to your variable
+		Boolean myIsSmaller = biggerNumber > smallerNumber;
+
+
+}
+public static void listsExercise () {
+		//You do this part!
+
+		//1.  Declare a list of Strings called myStringList
+		//TMH: I don't understand why I'm typing all of the stuff after the =.  It feels redundant.  
+		
+        List < String > myStringList = new List < string >();
+
+		//2.  Add three strings to your list and print it out in the debug log
+		
+		myStringList.add('I am a little confused,');
+        myStringList.add('but at least it is not');
+        myStringList.add('"Hello world"');
+
+		//3.  Print out the third value in your list of strings using list indexing.  
+		
+        system.debug(myStringList[0]);
+        system.debug(myStringList[1]);
+        system.debug(myStringList[2]);
+
+		//4.  Declare a list of integers and add the values 1,2,3,4,5 all in one line
+		
+        List < Integer > myIntegerList = new List < Integer >{1,2,3,4,5};
+                
+                
+	}
+
