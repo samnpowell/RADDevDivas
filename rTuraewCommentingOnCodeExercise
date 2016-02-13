@@ -1,0 +1,45 @@
+public with sharing class CommentingOnCodeExercise {
+	
+	//Your Assignment is to add comments describing what is being done in the methods below.  Call out the concepts you learned in your readings
+	//and in class. 
+	public static void cartValues () {
+
+        //Here we are declaring the integer primitive variable, minimumCartValue and initializing it with a value of 50
+		integer minimumCartValue = 50;
+
+        //Declaring the integer primitive variable, itemA, and initializing it with a value of 10
+		integer itemA = 10;
+        //Declaring the integer primitive variable, itemB, and initializing it with a value of 20
+		integer itemB = 20;
+        //Declaring the integer primitive variable, itemC, and initializing it with a value of 45
+		integer itemC = 45;
+
+        /*This is using a logical operator to initialize the integer primitive variable, cartValue. The first part of this statement is declaring 
+        the integer value cartValue. The second part, itemA + itemB, is saying that whatever those values are will equal cartValue. So in this case 10 
+        + 20 equals 30. 30 will be the value of the integer, cartValue.*/
+        integer cartValue = itemA + itemB;
+
+        /*This is using a comparison operator of greater than equal to. The Boolean variable will give a true/false statement. In this case the Boolean variable
+		cartMinimumMet equals the value of the cartValue, 30, which is greater than equal to the value of the integer variable minimumCartValue, 50. 
+		Essentially,this is asking is the value of cartValue greater than or equal to the value of minimumCartValue? 30 is not greater than or equal
+		to 50 so this will return as false!*/
+		Boolean cartMinimumMet = cartValue >= minimumCartValue;
+
+        /*Your printing out your boolean to the debug log. It will return as false! */
+		system.debug('Have we reached the minimum: '+cartMinimumMet);
+
+        /* I think this is saying that cartValue will now have a new value. It will be equal to the old value of cartValue, 30, plus the value of
+         itemC, 45. So the new value will be 75. It's using the sum operator */
+		cartValue = cartValue + itemC;
+
+        /*Since the value of cartValue has now changed, this statement is posing the question, is the new value of cartValue, 75, greater than
+        or equal to the value of minimumCartValue, 50, again. This will return as true!  */
+		cartMinimumMet = cartValue >= minimumCartValue;
+        
+        //Printing out your boolean variable, cartMinimumMet, to the debug log. It will return as true!
+		system.debug('How about now? : '+cartMinimumMet);
+
+	}
+
+
+}
