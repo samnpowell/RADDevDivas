@@ -1,0 +1,47 @@
+//The Apex class must be called 'AccountHandler' and be in the public scope
+public class AccountHandler {
+    
+    //The Apex class must have a public static method called 'insertNewAccount'.
+    
+    /*The 'insertNewAccount' method must accept an incoming string as a parameter, 
+        name the account after the parameter, insert it into the system and then return the account record.
+
+	The 'insertNewAccount' method must also accept an empty string, catch the failed DML and return null.*/
+    
+    //Creating a method with public scope and passing the following parameters: variable s type String
+    public static Account insertNewAccount(String s){
+    
+    //public static void insertNewAccount(String s){ //This only works if you want to use system.debug      
+        
+        //DML Statement Exception Try|Catch
+        try{
+            //Declaring an sObject Account a;
+            Account a = new Account();
+            
+            //Assigning the value of the string "s" passed as parameter earlier (line 12) to the Account Name
+        	a.Name = s;
+            
+            //Inserting the record into the database 
+        	insert a;
+            
+            //Returning the record value 
+        	return a;
+        	
+            //system.debug('Account: '+a); //print the "content" value of the sObject a;  In order for this to work:
+            /* Comment line 12 and 28. Next, delete the // line 30. */
+            
+            
+        }catch (DmlException e){
+            //Print the DML Message error 
+            System.debug('A DML exception has ocurred: '+e.getMessage());
+            
+            //return Null - requirement of the Trailhead exercise
+            return null;
+        }
+        
+    }
+    
+
+}
+
+// In the Anonymous window: AccountHandler.insertNewAccount('Google');
