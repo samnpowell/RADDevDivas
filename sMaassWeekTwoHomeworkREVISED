@@ -1,0 +1,93 @@
+public with sharing class WeekTwoHomework {
+	
+
+	public static void homeworkAssignmentMethod () {
+		//Read through the set-up below and then complete the code following the prompts  When you're done, make sure to compile (save) your work
+		//Open Execute Anonymous in the Developer Console and execute your code by typing in: Week2Homework.homeworkAssignmentMethod();
+		//Read through the debug statements to make sure you're done your work correctly.
+		
+		//************************************************************************************************************
+		// 1. Add two more whole numbers to this list using .add() 
+		List < Integer > numberList = new List < Integer >{0,1,1,2,3,5,8,13,21,34};
+		numberList.add(5);
+		numberList.add(10);
+
+		//Checking our work:
+		system.debug('This number should be 12: ' +numberList.size());
+
+		//************************************************************************************************************
+		// 2. Create a new Account and insert it in the database. (If you're stuck, look back at the class for an example)
+
+        // Create a new Account
+        Account aNewAccount = new Account();
+
+		//Add some information into the new Account
+		aNewAccount.Name = 'Rudy Barbeque';  //a favorite BBQ restaurant! :)
+		aNewAccount.BillingCity = 'Austin';
+		aNewAccount.BillingState = 'TX';
+		aNewAccount.Type = 'Customer - Direct';
+		aNewAccount.Cuisine_Type__c = 'Barbeque';
+
+		//Now, insert the new Account into Accounts
+		insert aNewAccount;
+        
+		//Checking our work:
+		// Why do I see 2 instead of 1 for this system.debug?
+		// When I tested by inserting two Accounts, the system.debug shows 4 instead
+		system.debug('This number should be 1: '+ Limits.getDMLRows());
+
+		//************************************************************************************************************
+		// 3. For the loop that is commented out below, update the while condition by replacing the ?? so that the loop runs 5 times
+		//delete the slashes so that the loop is no longer commented out and compile the classe
+		//TEST1: set the ?? to 8
+		Integer magicNumber = 2; 
+        Integer xx = 0;
+        system.debug('TEST1: set the ?? to 8');
+        
+        // By using a while loop, this loop will happen 5 times and give magicNumber a value of 8
+        while (magicNumber < 8) {
+    		magicNumber = magicNumber + 1;
+            xx = xx + 1;
+            system.debug('TEST1: The magic number is: '+magicNumber +'  This is While loop: '+ xx);
+		}
+
+		//Checking our work:
+		system.debug('TEST1: The magic number should now be 8: '+magicNumber);
+        
+        //=========================================================================================================
+        // TEST 2 with do While
+		// Reset the variables to the initial values
+        magicNumber = 2; 
+        xx = 0;
+        system.debug('TEST2:test do While');
+        
+        // By using a do-while loop, this loop will happen 5 times and give magicNumber a value of 8
+        do {
+    		magicNumber = magicNumber + 1;
+            xx = xx + 1;
+            system.debug('TEST2: The magic number is: '+magicNumber +'  This is do While loop: '+ xx);
+		} while (magicNumber < 8);
+
+		//Checking our work:
+		system.debug('TEST2: The magic number should now be 8: '+magicNumber);
+        //=========================================================================================================
+
+        // TEST 3 initial value of magicNumber set to 3
+		// Reset the variables to the initial values
+        magicNumber = 3; // BUT testing 3 instead of 2
+        xx = 0;
+        system.debug('TEST3:  initial value of magicNumber set to 3');
+        
+         // By using a while loop, this loop will happen 5 times and give magicNumber a value of 8
+        while (magicNumber < 8) {
+    		magicNumber = magicNumber + 1;
+            xx = xx + 1;
+            system.debug('TEST3: The magic number is: '+magicNumber +'  This is While loop with initial value of magicNumber set to 3: '+ xx);
+		}
+
+		//Checking our work:
+		system.debug('TEST3: The magic number should now be 8: '+magicNumber);
+        //=========================================================================================================
+
+	}
+}
