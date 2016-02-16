@@ -19,20 +19,19 @@ public with sharing class WeekTwoHomework {
 		//************************************************************************************************************
 		// 2. Create a new Account and insert it in the database. (If you're stuck, look back at the WeekTwoClassExercises class for an example)
 		Account a = new Account ();
+        a.Name = 'Acme Inc';
 		insert a;
 
-		//Checking our work:
+		//Checking our work: @Samantha, my anonymous execute returns "USER_DEBUG [26]|DEBUG|This number should be 1: 2". what did I do wrong?
 		system.debug('This number should be 1: '+ Limits.getDMLRows());
-
+	
 		//************************************************************************************************************
 		// 3. For the loop that is commented out below, update the while condition by replacing the ?? so that the loop runs 5 times
 		//delete the slashes so that the loop is no longer commented out and compile the class
 		Integer magicNumber = 2; 
-
-		while (magicNumber < 6) {
+		while (magicNumber < 8) {
 			magicNumber = magicNumber + 1;
 		}
-
 
 		//Checking our work:
 		system.debug('The magic number should now be 8: '+magicNumber);
