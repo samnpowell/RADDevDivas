@@ -1,0 +1,20 @@
+public class AccountHandler {
+    
+
+public static void insertNewAccount () {
+
+ //what does "accept incoming string"?  String from where?  From me, or from some other input? If it's some other input, what do I 
+ //use to get it to accept that? 
+    //Also, when looking around the community for help, I saw many people start out with a try{}.  What does that do? 
+    //I'm stuck on this. I think I got part of it, but clearly not all of it. 
+    
+    string myString = 'What Am I Doing';
+    
+    Account newAccount = new Account();
+    newAccount.Name = myString;
+    
+    insert newAccount;
+    
+}
+    
+}
