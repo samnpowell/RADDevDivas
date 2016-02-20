@@ -1,0 +1,29 @@
+public class AccountHandler {
+    
+    // Public method
+    public static void insertNewAccount(String myString) {
+        //This method will insert a new account named after an incoming parameter. 
+        //If the account is successfully inserted, 
+        //the method should return the account record. 
+        //If a DML exception occurs, the method should return null.
+             
+        try {
+        // Create the new Account using the incoming parameter 
+	        Account acct = new Account();
+    	    acct.Name = myString;
+
+        // Insert the new record
+        	insert acct;
+        
+        // Get the new ID on the inserted sObject argument
+			  ID acctID = acct.Id;
+		  	// Display this ID in the debug log
+		  	System.debug('ID of the new record is ' + acctID);
+        }
+        catch (DmlException e) {
+   			System.debug('A DML exception has occurred: ' + e.getMessage());
+        }	
+ 
+    }
+}
+
