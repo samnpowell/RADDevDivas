@@ -1,0 +1,80 @@
+public with sharing class WeekTwoHomework {
+	
+
+	public static void homeworkAssignmentMethod () {
+		//Read through the set-up below and then complete the code following the prompts.  When you're done, make sure to compile (save) your work
+		//Open Execute Anonymous in the Developer Console and execute your code by typing in: Week2Homework.homeworkAssignmentMethod();
+		//Read through the debug statements to make sure you're done your work correctly.
+		
+		//************************************************************************************************************
+		// 1. Add two more whole numbers to this list using .add() 
+		List < Integer > numberList = new List < Integer >{0,1,1,2,3,5,8,13,21,34};
+            numberList.add(55);
+        	numberList.add(89);
+        //I kept getting an error when I tried to add both numbers on one line
+        //like this: numberList.add(55,89); 
+        //the error said 'List index out of bounds'
+        
+        /*Next project: how to add them in the right increments automatically
+       	Something like: 
+			add an item to the list that has the value of last index + last index -1
+			but only while the list size is less than 20
+			otherwise, infinite loop
+		In Python, you get the last item in a list like this: numberList[-1] 
+		but that doesn't work here, I tried
+		And Googling didn't turn up a direct way to find that value, either
+		You could work around like this:
+			While (numberList.size() < 20) {
+				//get the list size
+				//get the value of the index at [list size - 1]
+				//get the value of the index at [list size - 2]
+				//add those two values
+				//add that value to the end of the list
+				//check list size for <20
+				//if list size <20, repeat 1-5
+				//if list size >=20, end loop
+			};
+			system.debug('here is my awesome list of fibonacci numbers: ' +numberList);
+
+	But I digress. Some other time.
+
+        */
+   
+		//Checking our work:
+		system.debug('This number should be 12: ' +numberList.size());
+        system.debug('This number should be 89: ' +numberlist[11]);
+ 
+
+		//************************************************************************************************************
+		// 2. Create a new Account and insert it in the database. (If you're stuck, look back at the WeekTwoClassExercises class for an example)
+        Account a = new Account (
+			Name = 'My New Account',
+			BillingCity = 'Seattle',
+			BillingState = 'WA',
+            BillingCountry = 'US',
+            Type = 'Fake',
+            Rating = 'HOOOOT'
+        );
+        
+        insert a;
+
+
+		//Checking our work:
+		system.debug('This number should be 1: '+ Limits.getDMLRows()); //and it is, b/c after reading the Chatter feed, I disabled triggers
+        
+
+		//************************************************************************************************************
+		// 3. For the loop that is commented out below, update the while condition by replacing the ?? so that the loop runs 5 times
+		//delete the slashes so that the loop is no longer commented out and compile the class
+		Integer magicNumber = 2; 
+
+		while (magicNumber < 7) {
+			magicNumber = magicNumber + 1;
+		}
+
+
+		//Checking our work:
+		system.debug('The magic number should now be 8: '+magicNumber); //except I think 8 would make the loop run 6 times
+
+	}
+}
