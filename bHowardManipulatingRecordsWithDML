@@ -1,0 +1,60 @@
+public class AccountHandler {
+// i'm a little stuck here 
+
+/* Inserts a new account named after an incoming parameter. 
+   If the account is successfully inserted, the method should return the 
+   account record. If a DML exception occurs, the method should return null. 
+
+[x]The Apex class must be called 'AccountHandler' and be in the public scope.
+[x]The Apex class must have a public static method called 'insertNewAccount'.
+[ ]The 'insertNewAccount' method must 
+[ ]	accept an incoming string as a parameter, 
+[x]	name the account after the parameter, 
+[x]	insert it into the system and then 
+[ ]	return the account record.
+[ ]The 'insertNewAccount' method must also 
+[ ]	accept an empty string, 
+[ ]	catch the failed DML and 
+[ ]	return null.
+*/
+
+    //returning account id b/c it says return the account??
+    //and requiring a string parameter
+    public static id insertNewAccount (String incomingString){
+        //i guess this is where i give my incoming string a value? 
+        incomingString = 'Some Random Account';
+        //declare variable called a, represents an Account
+        Account a = new Account (
+			//use incomingString as the name of the new account       
+        	Name = incomingString,
+            //add some other data to the Account fields b/c why not
+        	Type = 'trailhead',
+            Industry = 'outdoor',
+        	Rating = 'downright chilly');
+        //add the account to the db
+        
+        try {
+            insert a;
+            } catch (DmlException e) {
+    System.debug('A DML exception has occurred: ' +
+                e.getMessage());
+            }
+ // i straight up copied this from the trailhead module
+ // but i'm not totally sure what to do with it
+ // maybe i should put try{} around insert
+ /*
+      	try {
+    // This causes an exception because 
+    //   the required Name field is not provided.
+    Account acct = new Account();
+    // Insert the account 
+    insert acct;
+} catch (DmlException e) {
+    System.debug('A DML exception has occurred: ' +
+                e.getMessage());
+}
+
+*/
+    
+}
+    }
