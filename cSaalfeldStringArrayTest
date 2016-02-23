@@ -1,0 +1,31 @@
+public class StringArrayTest {
+   
+    /*According to the Trailhead challenge: 
+    The 'generateStringArray' method must return an array (or list) of strings. 
+	The number of returned strings is specified by the integer parameter to the 'generateStringArray' method */
+
+    public static List<String> generateStringArray(integer n){
+        
+        //Initiating a List type String where we're going to collect the values 
+        List<String> stringArray = new List<String>();
+        
+        //For Loop will iterate as long as the variable counter is less than the parameter passed in the method, represented by n (line 7)
+        for(Integer counter=0; counter<n; counter++){
+            
+            //Declaring the String s; s will receive the value 'Test' plus the corrent value of the variable counter 
+            String s = 'Test '+counter;
+            
+            //The content of the variable "s" will be added to the stringArray list
+            stringArray.add(s);
+        }
+        
+        //Print the full value of the stringArray list
+        system.debug(stringArray);
+        
+        //As it was a requeriment of the exercise, it must return a list of strings, in this case the "stringArray"
+        return stringArray;
+    }
+}
+
+//Debug -> Open Execute Anonymous Window
+//StringArrayTest.generateStringArray(10);
