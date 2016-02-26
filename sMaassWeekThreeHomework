@@ -26,7 +26,7 @@ public with sharing class WeekThreeHomework {
         	//assign the value of 'High' to field Priority 
         	acct.Priority__c = 'High';
         
-        // How can I add carriage return to system debug when it is an array?
+        // How can I add carriage return to system debug when it is a list?
         system.debug('Updated Accounts: ' + myAccountList);
         
         //Update Accounts
