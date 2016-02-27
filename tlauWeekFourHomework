@@ -1,0 +1,114 @@
+public with sharing class WeekFourHomework {
+	
+
+	public static void setsReview(){
+
+		//Your assignment: Play with Sets!
+
+		// 1.  Create a set of Strings and add at least 5 entries
+		set<String> catTypes = new set<String>();
+    catTypes.add('Tabby');
+    catTypes.add('Tortoiseshell');
+    catTypes.add('Siamese');
+    catTypes.add('Calico');
+    catTypes.add('Black');
+
+		//Use system.debug to print out the size of your set
+		system.debug('catTypes size: ' + catTypes.size());
+
+
+		//Add an item to your set that already exists
+		catTypes.add('Tabby');
+
+
+		//Use system.debug to print out the size again,  they should be the same!
+		system.debug('catTypes size after dupe added: ' + catTypes.size());
+
+
+
+		// 2.  Bonus Points!  Check out the documentation on Sets.  Pick one of the methods to try out and print the results to the debug log.  
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_set.htm%23apex_System_Set_methods?search_text=map%20methods
+		//Hint:  can you print out if the set is empty?  Can you clone it?
+		
+		//clone my set
+		set<String> catTypesClone = catTypes.clone();
+    system.debug('catTypesClone: ' + catTypesClone);
+        
+    //clear values from my original set
+    catTypes.clear();
+    system.debug('catTypes after clear: ' + catTypes);
+        
+    //check if my cloned set contains 'Tabby'
+    boolean containsTabby = catTypesClone.contains('Tabby');
+    system.debug('catTypesClone contains Tabby: ' + containsTabby);
+
+	}
+
+	public static void mapsReview () {
+
+		//Time to get creative!  
+
+		// 1. Create a new Map.  You can use whatever primitives/object types you like, as long as they make sense.
+		// Try to add at least 5 Key/value pairs.
+		map<Integer, String> askLevels = new map<Integer, String>();
+    askLevels.put(1,'Bronze');
+    askLevels.put(2,'Silver');
+    askLevels.put(3,'Gold');
+    askLevels.put(4,'Platinum');
+    askLevels.put(5,'Diamond');
+
+
+		//Now, in the debug log, print out  a list of the values.
+		system.debug('Values in askLevels: ' + askLevels.values());
+
+
+		//Can you print out a set of the Keys?
+		system.debug('Keys in askLevels: ' + askLevels.keySet());
+
+
+
+		// 2. Bonus!  Check out the documentation on Maps.  Manipulate the Map using one of the methods defined in the documentation
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_set.htm%23apex_System_Set_methods?search_text=map%20methods
+		// Hint: Can you remove an entry using the key?  Can you clear out the map without deleting it?
+		
+    //Remove ask level 5
+    askLevels.remove(5);
+    system.debug('Keys in askLevels after removing 5: ' + askLevels.keySet());
+        
+    //Clear askLevels
+    askLevels.clear();
+    system.debug('Keys in askLevels after clearing map: ' + askLevels.keySet());
+        
+    //Check for non-existent key 5
+    boolean contains5 = askLevels.containsKey(5);
+    system.debug('askLevels contains 5: ' + contains5);
+
+
+	}
+
+	public static void listsReview() {
+
+		// 1. Create a list of Strings.  Add at least 5 entries to the list.
+    list<String> petNames = new list<String>{'Orion','Cricket','Coconut','Koala','Calliope'};
+
+
+		// 2. Create a second list of Strings and add 5 or more entries to this list.
+    list<String> morePetNames = new list<String>{'Scrappy','MeiMei','Trudy','Angelina','Lizzie'};
+
+
+		//3.  Using the documentation on standard List methods from Salesforce, add the items from your first list, to your second list with one command
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_list.htm%23apex_System_List_methods?search_text=map%20methods
+		system.debug('morePetNames before add: '+ morePetNames);
+    morePetNames.addAll(petNames);
+    system.debug('morePetNames after add: '+ morePetNames);
+
+		//4.  Can you now sort your combined list and print it to the debug log?  (Hint:  Check the documentation!)
+		system.debug('morePetNames before sort: '+ morePetNames);
+    morePetNames.sort();
+    system.debug('morePetNames after sort: '+ morePetNames);
+
+	}
+
+
+
+}
