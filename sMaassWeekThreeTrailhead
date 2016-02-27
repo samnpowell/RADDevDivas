@@ -1,0 +1,37 @@
+public class StringArrayTest {
+	/* Tested with
+	StringArrayTest.generateStringArray(10);*/
+
+    /*Trailhead challenge asks
+    The Apex class must have a public static method called 'generateStringArray'.
+	The 'generateStringArray' method must return an array (or list) of strings. 
+	Each string must have a value in the format 'Test n' 
+	where n is the index of the current string in the array. 
+	The number of returned strings is specified by the integer parameter to the 'generateStringArray' method.*/
+    
+    public static List<String> generateStringArray(integer n){
+        
+        //Initiate a List of type String to collect the values 
+        List<String> stringArray = new List<String>();
+        
+        //For Loop will iterate as long as i<n
+        for(Integer i=0; i<n; i++){
+            
+            //Declare the String newstring which will concatenate 'Test ' with the value of the counter i 
+            String newstring  = 'Test '+i;
+            
+            //Add the value of newstring to the stringArray list
+            stringArray.add(newstring);
+            
+			system.debug(newstring);
+        }
+        
+        //Print the value of stringArray list
+        // How can I add carriage returns in with the array?
+        system.debug(stringArray);
+        
+        // return a list of strings
+        return stringArray;
+    }
+}
+
