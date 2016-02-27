@@ -1,0 +1,36 @@
+public with sharing class WeekThreeHomework {
+	
+	//1.  Your Assignment is to write a brand new method below that calls the private method that is already written.  You don't need to 
+	//know exactly how it works, we'll cover SOQL queries later, but take a look and you'll likely get the gist
+	//What's important to know is that when called it will return a list of top Accounts based on revenue, returning no more than 10.
+
+	//Write a method that uses a For Loop to loop through the returned list and update the Priority__c field on those accounts to be 'High'
+	//Be sure to use DML to update the records! 
+
+
+	private static List < Account > getTopTenAccounts () {
+
+		List < Account > topAccounts = [SELECT ID, Name, AnnualRevenue FROM Account WHERE AnnualRevenue!=NULL AND AnnualRevenue!=0 ORDER BY AnnualRevenue DESC LIMIT 10];
+
+		return topAccounts;
+	}
+
+    // I don't think I did any of this right - syntax is a struggle for me. So here's what I did: 
+    // Line 20: I want to return a list of accounts so list <Account>, and I want to get the parameter from the private method named getTopTenAccounts
+    public static list <Account> updatePriority (getTopTenAccounts) {
+        
+        // Line 23: variable type Account, name priorityAccounts : get the list topAccounts that was returned up there
+        for ( Account priorityAccounts: topAccounts ) {
+            
+            //Line 26: for each of the sObjects in priorityAccounts, make the Priority custom field value High
+            priorityAccounts.Priority__c = 'High';
+            
+         
+        }
+           // Line 31: update the whole list at once.  
+        update priorityAccounts    
+        
+    }
+
+
+}
