@@ -1,0 +1,112 @@
+public with sharing class WeekFourHomework {
+	
+
+	public static void setsReview(){
+
+		//Your assignment: Play with Sets!
+
+		// 1.  Create a set of Strings and add at least 5 entries
+		Set <String> recipe = new Set<String>();
+        recipe.add('acai');
+        recipe.add('banana');
+        recipe.add('shaved almonds');
+        recipe.add('flaxseed');
+        recipe.add('blueberries');
+
+		//Use system.debug to print out the size of your set
+		System.debug('The size of the recipe set is: ' +recipe.size());
+        System.debug('The ingredients of the recipe is: ' +recipe);
+
+
+		//Add an item to your set that already exists
+		recipe.add('acai');
+
+
+		//Use system.debug to print out the size again,  they should be the same!
+		System.debug('The size of the recipe set is: ' +recipe.size());
+
+
+		// 2.  Bonus Points!  Check out the documentation on Sets.  Pick one of the methods to try out and print the results to the debug log.  
+		// Documentation: 
+		// https://developer.salesforce.com/docs/atlas.en-us.200.0.apexcode.meta/apexcode/apex_methods_system_set.htm#apex_methods_system_set
+		//Hint:  can you print out if the set is empty?  Can you clone it?
+		Set<String> clonedRecipe = New Set<String> ();
+        clonedRecipe= recipe.clone();
+        System.debug('The cloned Recipe is: '+clonedRecipe);
+        
+        //remove an element of the cloned recipe 
+        clonedRecipe.remove('blueberries');
+        System.debug('Cloned recipe content is: ' +clonedRecipe);
+        
+        //remove all elements of the cloned recipe
+        clonedRecipe.clear();
+        system.debug('Is clonedRecipe empty: '+clonedRecipe.isEmpty());
+
+	}
+
+	public static void mapsReview() {
+
+		//Time to get creative!  
+
+		// 1. Create a new Map.  You can use whatever primitives/object types you like, as long as they make sense.
+		// Try to add at least 5 Key/value pairs.
+		Map <integer,string> menu = new Map <integer,string>();
+        menu.put(001, 'acai bowl');
+        menu.put(002, 'chicken wrap');
+        menu.put(003, 'tofu wrap');
+        menu.put(004, 'green smoothie');
+        menu.put(005, 'salad');
+
+
+		//Now, in the debug log, print out  a list of the values.
+		System.debug('The values of the menu map is: ' +menu.values());
+
+		//Can you print out a set of the Keys?
+		System.debug('The set of keys is: '+menu.keySet());
+
+
+
+		// 2. Bonus!  Check out the documentation on Maps.  Manipulate the Map using one of the methods defined in the documentation
+		// Documentation: 
+		// https://developer.salesforce.com/docs/atlas.en-us.200.0.apexcode.meta/apexcode/apex_methods_system_map.htm%23apex_methods_system_map
+		// Hint: Can you remove an entry using the key?  Can you clear out the map without deleting it?
+		
+        //remove an entry using the key
+        menu.remove(004);
+        System.debug('The menu after removing a key is now: '+menu);
+        
+        //clone menu map
+        Map<integer,string> clonedMenu = new Map<integer,string>();
+        clonedMenu = menu.clone();
+        System.debug('The Cloned menu is: '+menu);
+        
+        //Can you clear out the map without deleting it?
+        clonedMenu.clear();
+        System.debug ('Is Cloned menu empty? '+clonedMenu.isEmpty());
+        System.debug('Cloned Menu: ' +clonedMenu);
+
+
+	}
+
+	public static void listsReview() {
+
+		// 1. Create a list of Strings.  Add at least 5 entries to the list.
+        List <String> colors = new List <String> {'blue', 'yellow', 'white', 'purple', 'green'};
+
+
+		// 2. Create a second list of Strings and add 5 or more entries to this list.
+            List <String> animals = new List <String> {'cat','dog','bird','squirrel','racoon'};
+
+
+		//3.  Using the documentation on standard List methods from Salesforce, add the items from your first list, to your second list with one command
+		// Documentation:
+		//  https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_collections_lists.htm
+
+		//4.  Can you now sort your combined list and print it to the debug log?  (Hint:  Check the documentation!)
+
+        //Samantha: I did not understand the nested List sintax to be able to resolve #3&4        
+	}
+
+
+
+}
