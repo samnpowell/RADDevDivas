@@ -1,0 +1,13 @@
+public class ContactSearch {
+    public static List<Contact> searchForContacts(String LName, String MPCode){
+        List<Contact> searchContact = [SELECT Id, FirstName, LastName, MailingPostalCode FROM Contact
+                                       WHERE LastName = :LName AND 
+                                             MailingPostalCode = :MPCode];
+        
+        System.debug('Contact Info: '+searchContact);
+        return searchContact;
+        
+       
+    }
+
+}
