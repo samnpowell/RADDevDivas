@@ -1,0 +1,34 @@
+Object Oriented Classes
+
+Item:
+1. How would you instantiate a new Item?  (Type in the proper syntax -- Test yourself using Execute Anonymous)
+Item i = new Item(300,.2,'Roomba','Vacuum');
+
+2. Why do you have to pass in the required variables?
+The constructor method requires the variables in order to run and create the new object.
+
+3. What happens if you pass in a discount of more than 1 (100%)?
+Although there is language for throwing an exception, nothing seems to happen...yet. I suspect when we try to use DML, this will have some effect.
+
+ShoppingCart:
+1. Describe the relationship between the Item class and ShoppingCart class?
+The shopping cart includes a list of items, as well as a few other cart-specific attributes.
+
+2. How would you instantiate a new ShoppingCart?  (Type in the proper syntax -- Test yourself using Execute Anonymous)
+ShoppingCart s = new ShoppingCart(35);
+
+2a. Can you create and add an item to the cart?
+Item i = new Item(300,.2,'Roomba','Vacuum');
+s.addItem(i);
+
+3. What are some other methods that might be helpful to have on ShoppingCart ?
+remove one item, specify/update quantity (multiples of same item), display a user-friendly list of items and prices, apply a cart-wide discount
+
+
+Static vs. Non Static Methods
+
+1. What is the main syntax difference between calling this static method, and what you had to do to call a method on our Shopping cart class above, like adding an item?
+Here, I just called the method. For the items and shopping carts, I had to create a new instance of the object before calling the method.
+
+2. How would you describe the main difference between a static and non-static method?
+A static method can be called without creating an object. A non-static method can only be called on an object after creating that object.
