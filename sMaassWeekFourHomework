@@ -1,0 +1,99 @@
+public with sharing class WeekFourHomework {
+	
+
+	public static void setsReview(){
+
+		//Your assignment: Play with Sets!
+		// 1.  Create a set of Strings and add at least 5 entries
+		Set <String> mySet = new Set<String>();
+        mySet.add('couch');
+        mySet.add('chair');
+        mySet.add('bed');
+        mySet.add('table');
+        mySet.add('dresser');
+
+		//Use system.debug to print out the size of your set
+		system.debug('Number of items in myset '+ mySet.size() );
+
+		//Add an item to your set that already exists
+		mySet.add('table');
+
+
+		//Use system.debug to print out the size again,  they should be the same!
+		system.debug('Number of items in myset '+ mySet.size() );
+        system.debug('myset is '+ mySet );
+
+
+		// 2.  Bonus Points!  Check out the documentation on Sets.  Pick one of the methods to try out and print the results to the debug log.  
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_set.htm%23apex_System_Set_methods?search_text=map%20methods
+		// https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_set.htm
+		//Hint:  can you print out if the set is empty?  Can you clone it?
+		Set<String> clonedMySet = New Set<String> ();
+        clonedMySet= mySet.clone();
+        System.debug('The cloned set is: '+clonedMySet);
+        
+        //remove all elements of the cloned set
+        clonedMySet.clear();
+        system.debug('Is clonedMySet empty? '+clonedMySet.isEmpty());
+        system.debug('clonedMySet is '+ clonedMySet );
+
+	}
+
+	public static void mapsReview () {
+
+		//Time to get creative!  
+
+		// 1. Create a new Map.  You can use whatever primitives/object types you like, as long as they make sense.
+		// Try to add at least 5 Key/value pairs.
+		Map<Integer, String> myCoins = new map<Integer, String>();
+     	myCoins.put(1, 'Penny');
+        myCoins.put(2, 'Nickel');
+        myCoins.put(3, 'Dime');
+        myCoins.put(4, 'Quarter');
+        myCoins.put(5, 'Silver Dollar');
+
+		//Now, in the debug log, print out  a list of the values
+		system.debug('The values of the myCoins map is: ' +myCoins.values());
+
+		//Can you print out a set of the Keys?
+		system.debug('The set of keys is: '+myCoins.keySet());
+        
+		// 2. Bonus!  Check out the documentation on Maps.  Manipulate the Map using one of the methods defined in the documentation
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_set.htm%23apex_System_Set_methods?search_text=map%20methods
+		// Hint: Can you remove an entry using the key?  Can you clear out the map without deleting it?
+
+        // Remove entry 2
+        myCoins.remove(2);
+		system.debug('Keys in myCoins after removing 2: ' + myCoins.keySet());
+        
+         //Clear myCoins
+		myCoins.clear();
+	    system.debug('Keys in myCoins after clearing map: ' + myCoins.keySet());
+
+	}
+
+	public static void listsReview() {
+
+		// 1. Create a list of Strings.  Add at least 5 entries to the list.
+		
+		list<String> fruitNames = new list<String>{'Apple','Banana','Orange','Lime','Grapes'};
+        system.debug('List of fruitNames: ' + fruitNames);    
+
+
+		// 2. Create a second list of Strings and add 5 or more entries to this list.
+		list<String> morefruitNames = new list<String>{'Cranberries','Blueberries','Cherries','Pears','Plums'};
+        system.debug('List of morefruitNames: ' + morefruitNames); 
+
+		//3.  Using the documentation on standard List methods from Salesforce, add the items from your first list, to your second list with one command
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_list.htm 
+		// %23apex_System_List_methods?search_text=map%20methods
+		system.debug('morefruitNames before: '+ morefruitNames);
+    	morefruitNames.addAll(fruitNames);
+    	system.debug('morefruitNames after: '+ morefruitNames);
+
+		//4.  Can you now sort your combined list and print it to the debug log?  (Hint:  Check the documentation!)
+ 		morefruitNames.sort(); 
+   		system.debug('morefruitNames after sort: '+ morefruitNames);
+        
+	}
+}
