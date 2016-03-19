@@ -1,0 +1,74 @@
+public with sharing class WeekSevenHomework {
+	
+	//Assignment:  The following static method is supposed to create the number of accounts specified in the argument provided.
+	//Each Account should be named 'Sample Account #sampleNumber'  where sample number is the count.  So if you created 2 Accounts
+	//one would be called 'Sample Account 1' and the other 'Sample Account 2'
+
+	//Also, when we're done inserting them, we will create a case for each one with a Status of 'New', Origin of 'New Account' and the
+	//desription and subject of your choice.  
+
+	//This isn't working quite right.  Can you use your debugging skills to fix it?  I had to comment it out since it won't compile
+	//Look out for consistency and formatting too!  (even if they don't break the code)
+	//Add comments to describe what the code is doing.
+	//After you get it to compile, run it in execute anonymous and check that it's really working!
+
+    //Replaced the argument data type from decimal to Integer
+	public static void createSampleAccounts (Integer numberOfAccounts) {
+
+        //Initializing a List acctList type Account
+		List < Account > acctList = new List < Account >();
+  		
+ 		// Run the For Loop while the index is less or equal to the argument passed earlier on line 15
+		for (Integer i = 0; i <= numberOfAccounts; i++) {
+
+			//Creating a new Object type Account
+			Account a = new Account();
+
+			//Assigning the value according to the exercise request
+			a.Name = 'Sample Account ' + i;
+
+			//Adding the record recently created to the Account Object
+			acctList.add(a); 
+		}
+		
+		// Commiting the data into the database following the best pratice: DML statement outside of FOR Loop
+		insert acctList;
+        system.debug('acctList: '+ acctList);
+		
+        //Creating a new List type Case
+		List < Case > casesToInsert = new List < Case >();
+
+        // FOR Loop will iterate each record in the acctLlist
+        // removed an extra "c" on the acctList
+		for (Account a: acctList) {
+            
+            //Initializing Case Object "c" and assigning values 
+			Case c = new Case();
+			
+            //replaced "" for ''
+            c.Status = 'New';
+            
+            //added ;
+			c.Origin = 'New Account';
+            
+            //Added .Id 
+			c.AccountId = a.Id;
+            
+            //Added the assignment "=" that was missing
+			c.Subject ='New Case';
+            
+            //Fixed the Misspelling of Description and removed extra "=" sign
+			c.Description = 'Follow Up';
+			
+            //add the new Case to the list
+            casesToInsert.add(c);
+
+		}
+        //Insert the content of the List type Case into the database
+        insert casesToInsert;
+        system.debug('casesToInsert: '+ casesToInsert);
+
+	}
+
+
+}
