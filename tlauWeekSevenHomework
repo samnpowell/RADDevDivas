@@ -1,0 +1,51 @@
+public with sharing class WeekSevenHomework {
+	
+	//Assignment:  The following static method is supposed to create the number of accounts specified in the argument provided.
+	//Each Account should be named 'Sample Account #sampleNumber'  where sample number is the count.  So if you created 2 Accounts
+	//one would be called 'Sample Account 1' and the other 'Sample Account 2'
+
+	//Also, when we're done inserting them, we will create a case for each one with a Status of 'New', Origin of 'New Account' and the
+	//desription and subject of your choice.  
+
+	//This isn't working quite right.  Can you use your debugging skills to fix it?  I had to comment it out since it won't compile
+	//Look out for consistency and formatting too!  (even if they don't break the code)
+	//Add comments to describe what the code is doing.
+	//After you get it to compile, run it in execute anonymous and check that it's really working!
+
+	public static void createSampleAccounts (Integer numberOfAccounts) {
+
+    //create a list to hold new accounts
+		List<Account> acctList = new List <Account>();
+		
+    //iterate through numberofAccounts times and create that many accounts, then add them to acctList
+    for (Integer i = 1; i <= numberOfAccounts; i++) {
+			Account a = new Account();
+			a.Name = 'Sample Account ' + i;
+      acctList.add(a);
+		}
+
+    //insert new accounts
+		insert acctList;
+
+		//create a list to hold new cases
+    List <Case> casesToInsert = new List <Case>();
+
+		//iterate through accounts just created and create a new case for each, then add to casesToInsert
+    for (Account a: acctList) {
+			Case c = new Case();
+			c.Status = 'New';
+			c.Origin = 'New Account';
+			c.AccountId = a.Id;
+			c.Subject = 'New Client Onboarding';
+			c.Description = 'Follow up with this new client using standard welcome package';
+			casesToInsert.add(c);
+
+		}
+        
+		//insert new cases
+    insert casesToInsert;
+
+	}
+
+
+}
