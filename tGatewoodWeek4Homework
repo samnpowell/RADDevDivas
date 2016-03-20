@@ -1,0 +1,94 @@
+public with sharing class WeekFourHomework {
+	
+    //For some reason, my code compiles correctly but none of my system debug statements after line 37 are printing when I execute the debug log.
+		//Am I missing something really obvious?
+	public static void setsReview(){
+
+		//Your assignment: Play with Sets!
+
+		// 1.  Create a set of Strings and add at least 5 entries
+		Set <String> favoriteBooks = new Set<String>();
+        favoriteBooks.add('The Stand');
+        favoriteBooks.add('It');
+        favoriteBooks.add('Rose Madder');
+        favoriteBooks.add('Dolores Claiborne');
+        favoriteBooks.add('Cujo');
+     
+		//Use system.debug to print out the size of your set
+		system.debug('The size of my list of favorite books is: '+favoriteBooks.size());
+
+		//Add an item to your set that already exists
+		favoriteBooks.add('It');
+
+		//Use system.debug to print out the size again,  they should be the same!
+		system.debug('The size of my list of favorite books is: '+favoriteBooks.size());
+
+
+		// 2.  Bonus Points!  Check out the documentation on Sets.  Pick one of the methods to try out and print the results to the debug log.  
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_set.htm%23apex_System_Set_methods?search_text=map%20methods
+		//Hint:  can you print out if the set is empty?  Can you clone it?
+		//clone the existing Set favoriteBooks
+        Set<String>clonedSet = New Set<String>();
+        clonedSet = favoriteBooks.clone();
+        System.debug('The new cloned set is: '+clonedSet);
+        
+        //clear all values from the original set
+        favoriteBooks.clear();
+        system.debug('favoriteBooks after clearing the set: '+favoriteBooks);
+
+	}
+	
+	public static void mapsReview () {
+
+		//Time to get creative!  
+
+		// 1. Create a new Map.  You can use whatever primitives/object types you like, as long as they make sense.
+		// Try to add at least 5 Key/value pairs.
+		Map<Integer, String> myPositions = new Map<Integer, String>();
+		myPositions.put(1,'Point Guard');
+        myPositions.put(2,'Shooting Guard');
+        myPositions.put(3,'Wing1');
+        myPositions.put(4,'Wing2');
+        myPositions.put(5,'Center');
+        
+		//Now, in the debug log, print out  a list of the values.
+		system.debug('The values in the myPositions map are: '+myPositions.values());
+
+		//Can you print out a set of the Keys?
+		system.debug('The set of Keys in the myPositions map is: '+myPositions.keySet());
+
+		// 2. Bonus!  Check out the documentation on Maps.  Manipulate the Map using one of the methods defined in the documentation
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_set.htm%23apex_System_Set_methods?search_text=map%20methods
+		// Hint: Can you remove an entry using the key?  Can you clear out the map without deleting it?
+		//Removing key #5 from the map
+        myPositions.remove(5);
+        system.debug('The Keys in the myPositions map after removing 5: '+myPositions.keySet());
+        
+        //Clearing the map
+        myPositions.clear();
+        system.debug('Keys in myPositions map after clearing it: '+myPositions.keySet());
+        
+	}
+
+	public static void listsReview() {
+
+		// 1. Create a list of Strings.  Add at least 5 entries to the list.
+        list<String> myBourbons = new List<String>{'Pappy van Winkle', 'Woodford Reserve', 'Stagg', 'Knob Creek', 'Weller'};
+    
+		// 2. Create a second list of Strings and add 5 or more entries to this list.
+        list<String> moreBourbons = new List<String>{'Bulleit', 'EH Taylor', 'Elijah Craig', 'Hudson', 'Knob Creek'};
+
+		//3.  Using the documentation on standard List methods from Salesforce, add the items from your first list, to your second list with one command
+		// Documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_list.htm%23apex_System_List_methods?search_text=map%20methods
+        //add moreBourbons to myBourbons
+        myBourbons.addAll(moreBourbons);
+        system.debug('myBourbons should now contain 10 bourbons: '+myBourbons);
+        
+		//4.  Can you now sort your combined list and print it to the debug log?  (Hint:  Check the documentation!)
+		myBourbons.sort();
+        system.debug('myBourbons list after sorting: '+myBourbons);
+	}
+
+
+
+}
