@@ -1,0 +1,30 @@
+trigger ClosedOpportunityTrigger on Opportunity (before insert, before update) {
+    //Initializing a Task List;
+	List<Task> OppTask = new List<Task>();
+    
+    //FOR Loop will iterate each record entering on Trigger.New
+    for (Opportunity o: Trigger.new){
+        
+        //If it's Inserting a record (not committed into the database - ID is unknown) and Opportunity Stage = 'Closed Won', create a task
+    	if(Trigger.isInsert){
+            if (o.StageName == 'Closed Won'){
+                OppTask.add(new Task(Subject= 'Follow Up Test Task', WhatId = o.Id));
+            }
+        }
+        //If it's Updating a record (already committed into the database - ID is known) and Opportunity Stage = 'Closed Won', create a task
+    	if(Trigger.isUpdate){
+            if (o.StageName == 'Closed Won' &&
+                o.StageName == Trigger.oldMap.get(o.Id).StageName){ //since it's an Update, the record already has the ID - Trigger.oldMap.get(o.Id).StageName will retrieve the ID
+                    OppTask.add(new Task(Subject= 'Follow Up Test Task', WhatId = o.Id));
+                    
+                }
+        }
+	}
+    if(OppTask.size() >0){
+        insert OppTask;
+    }
+    
+    
+}
+        
+           
