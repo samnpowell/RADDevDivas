@@ -1,0 +1,32 @@
+@isTest
+private class Test_OnBeforeInsert {
+    
+    
+    static testMethod void testOnBeforeInsert(){
+        Set<String> itemNames = new Set<String>();
+        
+        Stock_Item__c itemA = new Stock_Item__c (Item_Name__c = 'Acai');
+        itemNames.add(itemA.Item_Name__c);
+        insert itemA;
+        system.assert(itemA.Id != null);
+        
+        Stock_Item__c itemB = new Stock_Item__c (Item_Name__c = 'Acai');
+        
+        if (itemNames.contains('Acai')){
+            try{
+			itemNames.add(itemB.Item_Name__c);
+            
+        	}
+        	catch(Exception e){
+            	system.assert(false , 'No duplicates allowed!');
+        	}
+        }
+        
+                
+        Stock_Item__c itemC = new Stock_Item__c (Item_Name__c = 'Banana');
+        itemNames.add(itemC.Item_Name__c);
+        insert itemC;
+        
+            
+        }
+    }
