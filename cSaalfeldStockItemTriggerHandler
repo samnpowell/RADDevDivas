@@ -1,0 +1,113 @@
+//A Utility class to process Stock Item records from the StockItemTrigger
+public with sharing class StockItemTriggerHandler {
+
+/* Before a Stock Item can be created, check that there is not already a stock item record with a matching name.
+If there is already a Stock Item with that name, change the name so that it is the name entered, 
+plus the words “Duplicate Item”.
+*/
+
+    public void OnBeforeInsert(List <Stock_Item__c> sItem){
+    	
+        //List of the current Stock Item records in the database
+        List <Stock_Item__c> currentItem = new List <Stock_Item__c>([SELECT Id, Item_Name__c FROM Stock_Item__c]);
+        
+        //From the list above, we're saving all the Item Names into a Set container that, by standard, do not contain duplicates
+        Set<String> iName = new Set<String>();
+       	
+        	//For each record in the currentItem list, add the Item Name variable content to the set
+            For (Stock_Item__c s: currentItem){
+                iName.add(s.Item_Name__c);
+			 } 
+        //For each new Stock Item to be commited into the database
+        For (Stock_Item__c sI : sItem){
+            
+            //Check if the Item Name has already been used
+            //The effective way is verifying if the value exists in the Set container, remember Sets don't allow duplicates
+            //if the value is already in the Set, Throw an error advising the user that the name is already been used
+            if(iName.contains(sI.Item_Name__c)){
+                Throw new RadException('Duplicate Item!  Update the existing item or use a different name');
+            }
+            
+            //if the Item Name is not previously been used, add the new Item Name to the Set container; line 31
+            // also add the record to the currentItem list; line 33
+            else{
+                iName.add(sI.Item_Name__c);
+                currentItem.add(sI);
+            }
+        }
+        
+        //if the currentItem list has records to be commited into the database
+        //insert the records into the database - DML insert outside of For Loop following best practices
+        if(currentItem.size()>0){
+            insert currentItem;
+        }
+        
+        
+     }
+
+
+    //Before a Stock Item is deleted, make sure that the stock on hand is at 0.  
+    //If it is not, Create a case so that someone is alerted.
+    //The case should indicate the name of the item that was deleted, the id, and the number of stock that were on hand 
+    //when it was deleted in the description
+
+    public void OnBeforeDelete(List <Stock_Item__c> sItemToDelete){
+       
+        //List of all Stock Items in the database that the For Loop will iterate the records from 
+        List <Stock_Item__c> sItem = new List <Stock_Item__c> ([SELECT Id, Description__c, Item_Name__c, Item_Stock_is_Low__c,
+                                     List_Price__c, Minimum_Stock_Level__c, Stock_on_Hand__c  
+                                     FROM Stock_Item__c]);
+        
+        //Map to figure out the owner.Id to send the case 
+        Map<Id, Stock_Item__c> mapUser = new Map<Id,Stock_Item__c> ([SELECT Id, OwnerId, Owner.Email FROM Stock_Item__c WHERE Id = :sItem]);
+        
+        //Initiating a list of Cases
+        List<Case> newCase = new List<Case>();
+
+        //Iterate each record of the database in the Stock_Item__c Object
+        For (Stock_Item__c s: sItem){
+            
+            //If the current amount of Stock_on_Hand__c is greater 0 when the user deleted the record
+            //send a case 
+            if(s.Stock_on_Hand__c != 0){
+                
+                Case c = new Case();
+                c.Status = 'New';
+				c.Origin = 'Stock Items';
+				c.Subject = 'Stock Items deleted with stock on hand greater than 0';
+				c.AccountId = s.id;
+				c.Description = 'Details of the Stock Items deleted ' +s.Id + s.Item_Name__c + s.Stock_on_Hand__c ;
+				c.Staff_Email_Address__c = mapUser.get(s.Id).Owner.Email;
+				newCase.add(c);               
+                
+            }
+        }
+ 
+        //if size of list of cases is greater than 0, insert list into the database
+        if (newCase.size() > 0) {
+            insert newCase;
+        }
+        
+    }
+
+	//We need a method that can be called from elsewhere in our codebase called getLowStockItems
+	//This should return a list of all the Stock Items that have a stock on hand count at or below their minimum stock level.
+	//It should include the following fields for the Stock Items it returns:
+	//ID
+	//Item_Name__c
+	//Item_Stock_is_Low__c
+	//Minimum_Stock_Level__c
+	//Stock_on_Hand__c
+        
+    public static List <Stock_Item__c> getLowStockItems(){
+        List <Stock_Item__c> LowStockItems = new List<Stock_Item__c>([SELECT Id, Description__c, Item_Name__c, Item_Stock_is_Low__c,
+                                             List_Price__c, Minimum_Stock_Level__c, Stock_on_Hand__c  
+                                             FROM Stock_Item__c
+                                             WHERE Stock_on_Hand__c <=0 ]);
+        system.debug(LowStockItems);
+        return LowStockItems; 
+        
+        
+    }
+
+}
