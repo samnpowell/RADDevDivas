@@ -1,0 +1,173 @@
+trigger StockItemTrigger on Stock_Item__c (before insert, before delete) {
+    
+    //create new instance of trigger handler
+    StockItemTriggerHandler si = new StockItemTriggerHandler();
+    
+    if (Trigger.isBefore) {
+        //if before insert, pass records to checkForDupes method
+        if (Trigger.isInsert) {
+            si.checkForDupes(Trigger.new);
+        }        
+        //if before delete, pass records to checkStock method
+        if (Trigger.isDelete) {
+            si.checkStock(Trigger.old);
+        }
+    }
+    
+}
+
+------------------------------------------------------------------------------------------------------
+
+public class StockItemTriggerHandler {
+    
+    public void checkForDupes(List<Stock_Item__c> newItems) {
+        //first step, create a set of item names to check against
+        //to-do: can this be consolidated into fewer steps? possible to populate a set of strings with soql?
+        
+        //query database for existing stock items and add them to a list
+        //to-do: figure out how to make this more efficient - only query for items that overlap with incoming records?
+        List<Stock_Item__c> existingItems = new List<Stock_Item__c> ([SELECT Id, Item_Name__c FROM Stock_Item__c]);
+        
+        //create a set of strings to hold existing stock item names
+        Set<String> existingItemNames = new Set<String>();
+        
+        //use the existing item list to add item names to the set
+        for (Stock_Item__c i : existingItems) {
+            existingItemNames.add(i.Item_Name__c);
+        }
+
+    //for each incoming record, check the name to see if it’s in the set
+        for (Stock_Item__c i : newItems) {
+            if (existingItemNames.contains(i.Item_Name__c)) {
+                //if a record already exists, throw an error
+                throw new RadException('Duplicate Item!  Update the existing item or use a different name.');
+                //i.Item_Name__c = i.Item_Name__c + ' Duplicate Item'; -- old code that updated item name instead of throwing error
+                
+            }
+            //if item name is new, add it to the set so it can also be checked against, in case of bulk import
+            existingItemNames.add(i.Item_Name__c);
+        }
+    
+    }
+    
+    public void checkStock(List<Stock_Item__c> deletedItems) {
+        //create an empty list of cases
+        List<Case> newCases = new List<Case>();
+        
+    //if stock is greater than 0, create a case and add it to the list
+        for (Stock_Item__c i : deletedItems) {
+            if (i.Stock_on_Hand__c > 0) {
+                Case c = new Case();
+                c.Subject = 'Stock item deleted';
+                c.Description = i.Item_Name__c + ' was deleted with ' + i.Stock_on_Hand__c + ' units in stock. ID: ' + i.Id;
+                c.Type = 'Other';
+                c.Staff_Email_Address__c = System.UserInfo.getUserEmail();
+                newCases.add(c);
+            }
+              
+        }
+        
+        //if size of case list is greater than 0, insert the list
+        if (newCases.size() > 0) {
+            insert newCases;
+                       
+        }
+    
+    }
+    
+    //method to return a list of items that are low in stock; static method so it can be called without creating a new instance of the class
+    public static List<Stock_Item__c> getLowStockItems() {
+        //create a new list of stock items and populate it with a soql query
+        List<Stock_Item__c> lowStockItems = new List<Stock_Item__c>([SELECT Id, Item_Name__c, Item_Stock_is_Low__c, Minimum_Stock_Level__c, Stock_on_Hand__c FROM Stock_Item__c WHERE Item_Stock_is_Low__c = true]);
+        
+        //return the list
+        return lowStockItems;
+    }
+
+}
+
+------------------------------------------------------------------------------------------------------
+
+@isTest
+private class StockItemTriggerHandlerTest {
+    static testMethod void validateCheckForDupes() {
+        Stock_Item__c si = new Stock_Item__c(Item_Name__c = 'Item A');
+        insert si;
+        
+        Stock_Item__c si2 = new Stock_Item__c(Item_Name__c = 'Item B');
+        insert si2;
+        system.assert(si2.Id != null);
+        
+        Stock_Item__c si3 = new Stock_Item__c(Item_Name__c = 'Item B');
+        try {
+            insert si3;
+        }
+        catch (Exception e) {
+        }
+        system.assert(true, 'Duplicate Item!  Update the existing item or use a different name.');
+    }
+    
+    static testMethod void validateCheckStock() {
+        Stock_Item__c si = new Stock_Item__c(Item_Name__c = 'Item A', Stock_on_Hand__c = 5);
+        insert si;
+        delete si;
+        List<Case> casesCreated = new List<Case>([SELECT Id FROM Case WHERE Subject = 'Stock item deleted']);
+        system.assertEquals(casesCreated.size(), 1);
+        
+    }
+    
+    static testMethod void validateGetLowStockItems() {
+        Stock_Item__c si = new Stock_Item__c(Item_Name__c = 'Item A', Stock_on_Hand__c = 5, Minimum_Stock_Level__c = 10);
+        insert si;
+        List<Stock_Item__c> lowStockItems = StockItemTriggerHandler.getLowStockItems();
+        system.assertEquals(lowStockItems.size(), 1);
+    }
+    
+    
+
+}
+
+------------------------------------------------------------------------------------------------------
+
+public with sharing class StockItem {
+    
+    //declare variables
+    public ID id;
+    public string name;
+    public string description;
+    public decimal listPrice;
+    public integer minStockLevel;
+    public integer stockOnHand;
+    
+    //constructor method
+    public StockItem(string itemName, string itemDesc, decimal price, integer minStock, integer stock) {
+        name = itemName;
+        description = itemDesc;
+        listPrice = price;
+        minStockLevel = minStock;
+        stockOnHand = stock;
+        
+    }
+    
+    //create method
+    public void createStockItem() {
+        Stock_Item__c si = new Stock_Item__c();
+        si.Item_Name__c = name;
+        si.Description__c = description;
+        si.List_Price__c = listPrice;
+        si.Minimum_Stock_Level__c = minStockLevel;
+        si.Stock_on_Hand__c = stockOnHand;
+        insert si;
+    }
+    
+  //delete method, public static method with a string parameter for an ID
+    public static void deleteStockItem(String itemID) {
+        //convert the string into an ID
+        Id i = Id.valueOf(itemID);
+        String sobjtype = i.getSobjectType().getDescribe().getName();
+        //if the id exists and corresponds to a stock item, delete the record associated with that id
+        if (i != null && sobjtype == 'Stock_Item__c') {
+            delete new Stock_Item__c(Id = i);
+        }
+    }
+}
