@@ -1,0 +1,83 @@
+//Object Oriented Class that defines and provides functions for opperating on an StockItem.
+public with sharing class StockItem {
+    
+    //Class variables 
+    public string name; // name of the Stock Item
+    public string description; //description of the Stock Item
+    public decimal listPrice;  // price of each Stock Item 
+	public integer minStockLevel; // minimim amount of the Stock Item
+	public integer stockOnHand; // current amount of the Stock Item
+    
+    //Initializing a list type Stock_Item__c that will be called on the methods 
+    List<Stock_Item__c> sItem = new List<Stock_Item__c>();
+
+    //Constructor Method passing arguments that will later match with the class variables declared above
+    public StockItem (string itemName, string itemDescription, decimal itemPrice, integer minAmount, integer itemStock){
+    
+        
+    //Assigning the values passed in the argument to the class variables      
+    name = itemName;
+    description = itemDescription;
+    listPrice = itemPrice;
+    minStockLevel = minAmount;
+    stockOnHand = itemStock;
+    
+        
+  	//Debug Open Execute Anonymous Windows: 
+ 	// StockItem s = new StockItem('Book', 'Greek Recipe Book', 20.00, 5, 2);
+ 	// system.debug(s);
+        
+    }
+    
+    //adds one Stock Item
+    public void addOneStockItem (Stock_Item__c newStockItem){
+        //add the new Stock Item to the list of Stock Item
+		this.sItem.add(newStockItem);
+    }
+    
+    //adds multiple Stock Items 
+    public void addMultipleStockItems(List <Stock_Item__c> newStockItems){
+        //add the new Stock Items to the list of Stock Item
+        this.sItem.addAll(newStockItems);
+    }
+    
+    //delete a Stock Item according to an Id provided in the argument
+    public static void deleteStockItem(String sItemID){
+        try{
+            
+        // Variable i type ID will receive the value passed as an argument above 
+        Id i = sItemID;
+
+        // List of all records that will be used in the For Loop 
+        List<Stock_Item__c> allStockItems = [SELECT Id,Item_Name__c FROM Stock_Item__c];
+        
+        //List of records that will be deleted
+        List <Stock_Item__c> deleteStockItems = new List <Stock_Item__c>();
+ 		
+        //Iterate each record of the 'allStockItems' List 
+        For (Stock_Item__c s : allStockItems){
+            
+            //If the Id value is equal to the value of the argument 
+            if(s.Id == i){
+              
+              // Add the record to the deleteStockItems list   
+              deleteStockItems.add(s);  
+            }
+
+        }
+        //If the deleteStockItems list is greater than 0
+        if (deleteStockItems.size()>0){
+            //delete all content in the deleteStockItems list 
+            delete deleteStockItems;
+        	system.debug('Deleted Stock Items: '+deleteStockItems);
+        }
+    	else{
+            system.debug('Deleted Stock Items: '+deleteStockItems);
+            //if the ID passed in the argument does not exist, throw an exception 
+        	
+    	}
+        }catch(Exception e){
+            Throw new RadException('Id is invalid!');
+        }         
+	}
+}
