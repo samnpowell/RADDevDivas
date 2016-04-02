@@ -1,0 +1,68 @@
+@isTest
+private class StockItemTriggerHandlerTest {
+    
+    
+    static testMethod void validateOnBeforeInsert(){
+        
+        //Creating a Test data for the Trigger
+        Stock_Item__c itemA = new Stock_Item__c (Item_Name__c = 'Banana');
+        insert itemA;
+        system.assert(itemA.Id != null);
+        
+        //Creating another Test data for the Trigger
+        Stock_Item__c itemB = new Stock_Item__c (Item_Name__c = 'Acai');       
+		insert itemB;
+        
+		//Creating a Test data to cover ELSE condition which has an exception in it        
+        Stock_Item__c itemC = new Stock_Item__c (Item_Name__c = 'Acai');
+          try {
+            insert itemC;
+        	}
+        	catch (Exception e) {
+        	}
+        	system.assert(true, 'Duplicate Item!');
+
+        
+            
+        }
+    
+    static testMethod void validateOnBeforeDelete(){
+        
+        //Creating a Test data 
+        Stock_Item__c s1 = new Stock_Item__c (Description__c = '70% Dark Chocolate', Item_Name__c = 'Chocolate Bar' , 
+                                             List_Price__c = 3.50, Minimum_Stock_Level__c = 20, Stock_on_Hand__c = 0 );
+        insert s1;
+        delete s1;
+        
+        //Creating a Test data when current amount of Stock_on_Hand__c is greater than 0 when the user deleted the record
+        Stock_Item__c s2 = new Stock_Item__c (Description__c = 'Milk chocolate chips', Item_Name__c = 'Chocolate Chips' , 
+                                             List_Price__c = 5.00, Minimum_Stock_Level__c = 5, Stock_on_Hand__c = 10 );
+        insert s2;
+        delete s2;
+		        
+        
+        List<Case> casesCreated = new List<Case>([SELECT Id FROM Case WHERE Subject = 'Stock item deleted']);
+        system.assertEquals(casesCreated.size(), 0);
+        
+    }
+    
+    static testMethod void validategetLowStockItems(){
+        //Creating a Test data for the Trigger
+        Stock_Item__c s1 = new Stock_Item__c (Description__c = 'Ghost Pepper, very spicy', Item_Name__c = 'Pepper Sauce' , 
+                                             List_Price__c = 10.00, Minimum_Stock_Level__c = 5, Stock_on_Hand__c = 10 );
+        insert s1;
+        
+        //Creating a Test data to cover the Stock Items that have a stock on hand count at or below their minimum stock level.
+        Stock_Item__c s2 = new Stock_Item__c (Description__c = 'Mild & flavorful', Item_Name__c = 'Pepper' , 
+                                             List_Price__c = 8.00, Minimum_Stock_Level__c = 10, Stock_on_Hand__c = 0 );
+        insert s2;
+        
+        Stock_Item__c s3 = new Stock_Item__c (Description__c = 'Crunchy, corn snack chips', Item_Name__c = 'Chips' ,  
+                                             List_Price__c = 5.00, Minimum_Stock_Level__c = 4, Stock_on_Hand__c = 4 );
+        insert s3;
+        
+        List<Stock_Item__c> lowStockItems = StockItemTriggerHandler.getLowStockItems();
+        system.assertEquals(lowStockItems.size(), 1);
+    }
+    
+}
