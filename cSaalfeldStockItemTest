@@ -1,0 +1,43 @@
+@isTest
+private class StockItemTest {
+    static testMethod void validateaddOneStockItem(){
+        //Calling controller of the StockItem
+	    StockItem controller = new StockItem('test', 'test2', 12.0, 22, 3);
+        
+         //creating a new object Stock_Item__c
+        Stock_Item__c stock = new Stock_Item__c();
+         
+         //passing parameter in a method
+        controller.addOneStockItem(stock); 
+
+		List <Stock_Item__c> newStockItems = [SELECT Item_Name__c, Description__c, List_Price__c, Minimum_Stock_Level__c, Stock_on_Hand__c 
+                                              FROM Stock_Item__c];
+        
+        List <Stock_Item__c> newStockItemslist = new List <Stock_Item__c>();        
+        
+        Stock_Item__c a = new Stock_Item__c(Description__c = 'Aluminium Foil', Item_Name__c = 'Heavy Duty Aluminium Foil', 
+                                             List_Price__c = 15.00, Minimum_Stock_Level__c = 20, Stock_on_Hand__c = 15 );
+        newStockItemslist.add(a);
+        
+        Stock_Item__c b = new Stock_Item__c(Description__c = 'Bag', Item_Name__c = 'Snack Bag', 
+                                             List_Price__c = 5.00, Minimum_Stock_Level__c = 30, Stock_on_Hand__c = 20 );
+        newStockItemslist.add(b);
+        insert newStockItemslist;
+        controller.addMultipleStockItems(newStockItems);
+        
+        StockItem.deleteStockItem(a.Id);
+        
+         try{
+             
+            //negative scenario to cover catch
+            StockItem.deleteStockItem('12345');
+         }
+         catch(Exception e){
+             
+        }
+
+        
+    }
+    
+
+}
